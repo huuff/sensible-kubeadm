@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
+
+POD_CIDR=${3:-"10.0.0.0/16"}
+
 CONFIG_ROOT_DIR=/etc/kubernetes/kubeadm-config
 mkdir -p "$CONFIG_ROOT_DIR"
 ENCRYPTION_CONFIGURATION_FILE="$CONFIG_ROOT_DIR/encryptionconfiguration.yaml"
@@ -30,6 +33,8 @@ cat <<EOF > "$CLUSTER_CONFIGURATION_FILE"
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 kubernetesVersion: v1.24.0
+networking:
+  podSubnet: "$POD_CIDR"
 featureGates:
   SeccompDefault: true
 apiServer:
