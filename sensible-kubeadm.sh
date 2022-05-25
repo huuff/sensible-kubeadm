@@ -26,10 +26,10 @@ resources:
       - identity: {}
 EOF
 
-echo "Encryption configuration: $ENCRYPTION_CONFIGURATION_FILE"
+#echo "Encryption configuration: $ENCRYPTION_CONFIGURATION_FILE"
 
 cp ./policy.yaml "$AUDIT_POLICY_FILE"
-echo "Audit policy configyration: $AUDIT_POLICY_FILE"
+#echo "Audit policy configyration: $AUDIT_POLICY_FILE"
 
 cat <<EOF > "$KUBEADM_CONFIG_FILE"
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -57,5 +57,5 @@ localAPIEndpoint:
   bindPort: 6443
 EOF
 
-echo "Cluster configuration: $CLUSTER_CONFIGURATION_FILE"
+echo "kubeadm configuration: $KUBEADM_CONFIG_FILE"
 
