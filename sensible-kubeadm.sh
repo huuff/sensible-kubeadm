@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+set -eu
 
 CONTROL_PLANE_ENDPOINT="$1"
 APISERVER_ADVERTISE_ADDRESS="$2"
@@ -35,7 +36,7 @@ cat <<EOF > "$KUBEADM_CONFIG_FILE"
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 kubernetesVersion: v1.24.0
-controlPlaneEndpoint="$CONTROL_PLANE_ENDPOINT"
+controlPlaneEndpoint: "$CONTROL_PLANE_ENDPOINT"
 networking:
   podSubnet: "$POD_CIDR"
 featureGates:
