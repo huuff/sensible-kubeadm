@@ -47,11 +47,11 @@ apiServer:
     encryption-provider-config: $ENCRYPTION_CONFIGURATION_FILE
     audit-policy-file: $AUDIT_POLICY_FILE
 ---
-apiVersion: kubelet.config.k8s.io/v1beta1
+apiVersion: kubelet.config.k8s.io/v1beta3
 kind: KubeletConfiguration
 seccompDefault: true
 ---
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: "$APISERVER_ADVERTISE_ADDRESS"
