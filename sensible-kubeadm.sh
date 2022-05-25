@@ -44,6 +44,10 @@ apiServer:
     anonymous-auth: "false"
     encryption-provider-config: $ENCRYPTION_CONFIGURATION_FILE
     audit-policy-file: $AUDIT_POLICY_FILE
+  extraVolumes:
+    - name: kubeadm-config
+      hostPath: /etc/kubernetes/kubeadm-config
+      mountPath: /etc/kubernetes/kubeadm-config
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
