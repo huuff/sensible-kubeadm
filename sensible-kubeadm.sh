@@ -39,8 +39,6 @@ kubernetesVersion: v1.24.0
 controlPlaneEndpoint: "$CONTROL_PLANE_ENDPOINT"
 networking:
   podSubnet: "$POD_CIDR"
-featureGates:
-  SeccompDefault: true
 apiServer:
   extraArgs:
     anonymous-auth: "false"
@@ -50,6 +48,8 @@ apiServer:
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 seccompDefault: true
+extraArgs:
+  "feature-gates": "SeccompDefault=true"
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
