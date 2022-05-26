@@ -51,15 +51,14 @@ apiServer:
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 seccompDefault: true
+featureGates:
+  SeccompDefault: true
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: "$APISERVER_ADVERTISE_ADDRESS"
   bindPort: 6443
-nodeRegistration:
-  kubeletExtraArgs:
-    "feature-gates": "SeccompDefault=true"
 EOF
 
 echo "kubeadm configuration: $KUBEADM_CONFIG_FILE"
