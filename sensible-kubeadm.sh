@@ -61,6 +61,9 @@ kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: "$APISERVER_ADVERTISE_ADDRESS"
   bindPort: 6443
+nodeRegistration:
+  kubeletExtraArgs:
+    "cloud-provider": "external" # hetzner only?
 EOF
 
 kubeadm init --config "$KUBEADM_CONFIG_FILE"
