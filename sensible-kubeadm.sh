@@ -13,6 +13,8 @@ AUDIT_POLICY_FILE="$CONFIG_ROOT_DIR/policy.yaml"
 
 # TODO: Use files and envsubst instead of inlining the yamls here?
 
+echo "Initializing control plane..."
+
 cat <<EOF > "$ENCRYPTION_CONFIGURATION_FILE"
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
@@ -61,5 +63,11 @@ localAPIEndpoint:
   bindPort: 6443
 EOF
 
-echo "kubeadm configuration: $KUBEADM_CONFIG_FILE"
+kubeadm init --config "$KUBEADM_CONFIG_FILE"
 
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+echo "Installing calico operator..."
+# TODO: Maybe allow other operators?
+kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
+curl -sN https://projectcalico.docs.tigera.io/manifests/custom-resources.yaml |  sed -e "s|192.168.0.0/16|$POD_CIDR|g" | kubectl create -f -
