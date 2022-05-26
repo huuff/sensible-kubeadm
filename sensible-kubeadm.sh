@@ -13,6 +13,9 @@ AUDIT_POLICY_FILE="$CONFIG_ROOT_DIR/policy.yaml"
 
 # TODO: Use files and envsubst instead of inlining the yamls here?
 
+read -rp "Enter your cloud provider [external]: " CLOUD_PROVIDER
+CLOUD_PROVIDER=${CLOUD_PROVIDER:-external}
+
 echo "Initializing control plane..."
 
 cat <<EOF > "$ENCRYPTION_CONFIGURATION_FILE"
@@ -28,7 +31,6 @@ resources:
               secret: $(head -c32 /dev/urandom | base64)
       - identity: {}
 EOF
-
 
 cp ./policy.yaml "$AUDIT_POLICY_FILE"
 
@@ -63,14 +65,23 @@ localAPIEndpoint:
   bindPort: 6443
 nodeRegistration:
   kubeletExtraArgs:
-    "cloud-provider": "external" # hetzner only?
+    "cloud-provider": "$CLOUD_PROVIDER"
 EOF
 
 kubeadm init --config "$KUBEADM_CONFIG_FILE"
 
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
-echo "Installing calico operator..."
-# TODO: Maybe allow other operators?
+echo "Installing calico network plugin..."
+# TODO: Maybe allow other network plugins?
 kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
 curl -sN https://projectcalico.docs.tigera.io/manifests/custom-resources.yaml |  sed -e "s|192.168.0.0/16|$POD_CIDR|g" | kubectl create -f -
+
+echo "All done! You should have the join commands up in the logs"
+echo "Please remember that you have to set the cloud provider on every node, so before joining you have to use:"
+
+cat <<FEO
+cat <<EOF | sudo tee /etc/default/kubelet
+KUBELET_EXTRA_ARGS=--cloud-provider=$CLOUD_PROVIDER
+EOF
+FEO
