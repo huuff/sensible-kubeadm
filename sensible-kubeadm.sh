@@ -48,6 +48,8 @@ apiServer:
     - name: kubeadm-config
       hostPath: /etc/kubernetes/kubeadm-config
       mountPath: /etc/kubernetes/kubeadm-config
+      readOnly: true
+      pathType: DirectoryOrCreate
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
