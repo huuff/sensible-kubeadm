@@ -27,10 +27,8 @@ resources:
       - identity: {}
 EOF
 
-#echo "Encryption configuration: $ENCRYPTION_CONFIGURATION_FILE"
 
 cp ./policy.yaml "$AUDIT_POLICY_FILE"
-#echo "Audit policy configyration: $AUDIT_POLICY_FILE"
 
 cat <<EOF > "$KUBEADM_CONFIG_FILE"
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -45,8 +43,8 @@ apiServer:
     audit-policy-file: $AUDIT_POLICY_FILE
   extraVolumes:
     - name: kubeadm-config
-      hostPath: /etc/kubernetes/kubeadm-config
-      mountPath: /etc/kubernetes/kubeadm-config
+      hostPath: $CONFIG_ROOT_DIR
+      mountPath: $CONFIG_ROOT_DIR
       readOnly: true
       pathType: DirectoryOrCreate
 ---
