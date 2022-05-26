@@ -41,7 +41,6 @@ networking:
   podSubnet: "$POD_CIDR"
 apiServer:
   extraArgs:
-    anonymous-auth: "false"
     encryption-provider-config: $ENCRYPTION_CONFIGURATION_FILE
     audit-policy-file: $AUDIT_POLICY_FILE
   extraVolumes:
