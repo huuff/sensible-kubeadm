@@ -87,4 +87,9 @@ KUBELET_EXTRA_ARGS=--cloud-provider=$CLOUD_PROVIDER
 EOF
 FEO
 
-echo "Also note, since you've choosen serverTLSBootstrap (so metrics-server works out of the box), you'll have to approve CSR (see them with kubectl get csr) for their rotation (every year) with kubectl certificate approve «csr name»"
+# TODO: Automate approving CSRs, at least the first ones
+echo "================"
+echo "Also note, since you've choosen 'serverTLSBootstrap' (so metrics-server works out of the box)"
+echo "you'll have to manually approve CSRs (check any pending ones with 'kubectl get csr')"
+echo "with 'kubectl certificate «csr name»'. Note that you'll also have to do this when the certificates"
+echo "rotate a year from now."
