@@ -55,6 +55,7 @@ apiServer:
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 seccompDefault: true
+serverTLSBootstrap: true # metrics-server won't work without this
 featureGates:
   SeccompDefault: true
 ---
@@ -85,3 +86,5 @@ cat <<EOF | sudo tee /etc/default/kubelet
 KUBELET_EXTRA_ARGS=--cloud-provider=$CLOUD_PROVIDER
 EOF
 FEO
+
+echo "Also note, since you've choosen serverTLSBootstrap (so metrics-server works out of the box), you'll have to approve CSR (see them with kubectl get csr) for their rotation (every year) with kubectl certificate approve «csr name»"
