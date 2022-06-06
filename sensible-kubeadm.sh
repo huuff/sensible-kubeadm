@@ -91,5 +91,5 @@ FEO
 echo "================"
 echo "Also note, since you've choosen 'serverTLSBootstrap' (so metrics-server works out of the box)"
 echo "you'll have to manually approve CSRs (check any pending ones with 'kubectl get csr')"
-echo "with 'kubectl certificate «csr name»'. Note that you'll also have to do this when the certificates"
+echo "with 'kubectl certificate approve «csr name»'. Note that you'll also have to do this when the certificates"
 echo "rotate a year from now."
