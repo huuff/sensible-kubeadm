@@ -56,6 +56,7 @@ apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 seccompDefault: true
 serverTLSBootstrap: true # metrics-server won't work without this
+cgroupDriver: systemd
 featureGates:
   SeccompDefault: true
 ---
