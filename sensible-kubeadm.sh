@@ -81,6 +81,23 @@ curl -sN https://projectcalico.docs.tigera.io/manifests/custom-resources.yaml | 
 
 echo "================"
 echo "All done! You should have the join commands up in the logs"
+
+# TODO: Automate approving CSRs, at least the first ones
+echo "================"
+echo "NEXT STEPS":
+echo "================"
+echo ""
+
+echo "APPROVE CERTIFICATES"
+echo "================"
+echo "Also note, since you've choosen 'serverTLSBootstrap' (so metrics-server works out of the box)"
+echo "you'll have to manually approve CSRs (check any pending ones with 'kubectl get csr')"
+echo "with 'kubectl certificate approve «csr name»'. Note that you'll also have to do this when the certificates"
+echo "rotate a year from now."
+echo ""
+
+echo "SET CLOUD PROVIDER ON EVERY NODE"
+echo "================"
 echo "Please remember that you have to set the cloud provider on every node, so before joining you have to use:"
 
 cat <<FEO
@@ -88,10 +105,14 @@ cat <<EOF | sudo tee /etc/default/kubelet
 KUBELET_EXTRA_ARGS=--cloud-provider=$CLOUD_PROVIDER
 EOF
 FEO
+echo ""
 
-# TODO: Automate approving CSRs, at least the first ones
+echo "PROVIDE ENCRYPTION CONFIG"
 echo "================"
-echo "Also note, since you've choosen 'serverTLSBootstrap' (so metrics-server works out of the box)"
-echo "you'll have to manually approve CSRs (check any pending ones with 'kubectl get csr')"
-echo "with 'kubectl certificate approve «csr name»'. Note that you'll also have to do this when the certificates"
-echo "rotate a year from now."
+echo "You have to copy $ENCRYPTION_CONFIGURATION_FILE to every control plane node"
+echo ""
+
+echo "================"
+echo "Control the cluster from this node by doing:"
+echo "export KUBECONFIG=/etc/kubernetes/admin.conf"
+echo ""
