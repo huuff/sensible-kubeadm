@@ -107,10 +107,10 @@ EOF
 FEO
 echo ""
 
-echo "PROVIDE ENCRYPTION CONFIG"
+echo "PROVIDE CONFIG FILES"
 echo "================"
-echo "You have to copy $ENCRYPTION_CONFIGURATION_FILE to every control plane node"
-echo ""
+echo "* You have to copy $ENCRYPTION_CONFIGURATION_FILE to every control plane node"
+echo "* You have to copy $AUDIT_POLICY_FILE to every control plane node"
 
 echo "================"
 echo "Control the cluster from this node by doing:"
