@@ -73,11 +73,13 @@ kubeadm init --config "$KUBEADM_CONFIG_FILE" --upload-certs
 
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
+echo "================"
 echo "Installing calico network plugin..."
 # TODO: Maybe allow other network plugins?
 kubectl create -f https://projectcalico.docs.tigera.io/manifests/tigera-operator.yaml
 curl -sN https://projectcalico.docs.tigera.io/manifests/custom-resources.yaml |  sed -e "s|192.168.0.0/16|$POD_CIDR|g" | kubectl create -f -
 
+echo "================"
 echo "All done! You should have the join commands up in the logs"
 echo "Please remember that you have to set the cloud provider on every node, so before joining you have to use:"
 
