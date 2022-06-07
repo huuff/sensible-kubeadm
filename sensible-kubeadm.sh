@@ -69,7 +69,7 @@ nodeRegistration:
     "cloud-provider": "$CLOUD_PROVIDER"
 EOF
 
-kubeadm init --config "$KUBEADM_CONFIG_FILE"
+kubeadm init --config "$KUBEADM_CONFIG_FILE" --upload-certs
 
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
