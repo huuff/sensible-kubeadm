@@ -112,6 +112,11 @@ echo "================"
 echo "* You have to copy $ENCRYPTION_CONFIGURATION_FILE to every control plane node"
 echo "* You have to copy $AUDIT_POLICY_FILE to every control plane node"
 
+echo "JOIN MASTERS"
+echo "================"
+echo "Remember that if you're using a private network, you'll want to advertise only private addresses for any master nodes."
+echo "Therefore, you'll need to join these with the --apiserver-advertise-address flag set to the private IP"
+
 echo "================"
 echo "Control the cluster from this node by doing:"
 echo "export KUBECONFIG=/etc/kubernetes/admin.conf"
