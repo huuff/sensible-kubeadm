@@ -37,6 +37,7 @@ install -m 755 runc.amd64 /usr/local/sbin/runc
 
 echo "INSTALLING CNI PLUGINS"
 wget "https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v$cni_plugins_version.tgz"
+mkdir -p /opt/cni/bin
 tar Cxzvf /opt/cni/bin "cni-plugins-linux-amd64-v$cni_plugins_version.tgz"
 
 echo "SETTING SYSTEMD AS THE CGROUP DRIVER FOR CONTAINERD..."
